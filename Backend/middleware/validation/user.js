@@ -42,3 +42,4 @@ exports.userValidation = (req, res, next) => {
         return res.json({success: false, message: error});
     }
 }
+
