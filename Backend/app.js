@@ -24,7 +24,6 @@ app.get('/', (req, res) => {
 })
 
 app.use(express.json());
-
 app.use(userRouter);
 
 app.listen(8000, () => {
