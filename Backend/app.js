@@ -14,9 +14,19 @@ app.use(function(req, res, next) {
     next();
 });
 
-const mongoose  = require('./db/mongoose');
+const userRouter = require('./routes/user');
 
-// listen on port 3000
-app.listen(3000, () => {
-    console.log("Server is listening on port 3000");
+const mongoose  = require('./db/mongoose');
+const User = require('./db/models/user');
+
+app.get('/', (req, res) => {
+    res.send("<h1>Hello world!<h1>")
+})
+
+app.use(express.json());
+
+app.use(userRouter);
+
+app.listen(8000, () => {
+    console.log("Server is listening on port 8000");
 });
