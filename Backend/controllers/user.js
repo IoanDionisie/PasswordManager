@@ -1,4 +1,6 @@
 const User = require('../db/models/user')
+const jwt = require('jsonwebtoken');
+const sharp = require('sharp');
 
 exports.createUser = async (req, res) => {
     const {username, email, password } = req.body;
@@ -25,7 +27,26 @@ exports.userSignIn = async (req, res) => {
         if (!isMatch) {
             return res.json({success: false, message: 'Email or  password does not match!'});
         } else {
-            res.json({success: true, user: user});
+            const token = jwt.sign({userId: user._id}, process.env.JWTSECRETKEY, {expiresIn: '1d'});
+            res.json({success:  true, user, token});
+        }
+    }
+}
+
+exports.uploadProfilePicture = async (req, res) => {
+    const {user} = req;
+    if (!user) {
+        return res.status(401).json({succes: false, message: 'Unauthorized access!'});
+    } else {
+        try {
+            const profileImageBuffer = req.file.buffer;
+            const {width, height} = await sharp(profileImageBuffer).metadata();
+            const avatar = await sharp(profileImageBuffer).resize(Math.round(width * 0.5), Math.round(height * 0.5)).toBuffer();
+            await User.findByIdAndUpdate(user._id, {avatar});
+            res.status(201).json({success:true, message: "Your profile picture was updated!"});
+        } catch(error) {
+            res.status(500).json({success:false, message: "Server error on updating profile picture!"});
+            console.log('Error while uploading profile picture', error.message);
         }
     }
 }
