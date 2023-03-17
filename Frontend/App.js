@@ -1,14 +1,16 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import FormHeader from './components/FormHeader';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Yoooo!</Text>
-      <StatusBar style="auto" />
+  <View style={{flex: 1, paddingTop: 120}}>
+      <View style={{height: 100}}>
+        <FormHeader leftHeading='Welcome' rightHeading='Back' subHeading='Password Manager'/>
+      </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -16,5 +18,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-  },
+  }
 });
