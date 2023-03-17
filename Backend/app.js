@@ -3,6 +3,9 @@ const express = require("express");
 const cors = require("cors");
 
 const app = express();
+const userRouter = require('./routes/user');
+const mongoose  = require('./db/mongoose');
+const User = require('./db/models/user');
 
 app.use(cors());
 app.use(express.json());
@@ -14,10 +17,6 @@ app.use(function(req, res, next) {
     next();
 });
 
-const userRouter = require('./routes/user');
-
-const mongoose  = require('./db/mongoose');
-const User = require('./db/models/user');
 
 app.get('/', (req, res) => {
     res.send("<h1>Hello world!<h1>")

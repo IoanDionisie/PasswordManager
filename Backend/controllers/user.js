@@ -13,3 +13,19 @@ exports.createUser = async (req, res) => {
         res.json(user);
     }
 }
+
+exports.userSignIn = async (req, res) => {
+    const {email, password} = req.body;
+    const user = await User.findOne({email: email});
+    if (!user) {
+        return res.json({success: false, message: 'User not found!'});
+    } else {
+        const isMatch = await user.comparePassword(password);
+
+        if (!isMatch) {
+            return res.json({success: false, message: 'Email or  password does not match!'});
+        } else {
+            res.json({success: true, user: user});
+        }
+    }
+}
