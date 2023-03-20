@@ -10,9 +10,8 @@ export default function FormContainer({children}) {
   )
 }
 const styles = StyleSheet.create({
-    container: {
-        justifyContent: "center", 
-        alignItems: "center", 
-        width: Dimensions.get('window').width
+    container: { 
+        width: Dimensions.get('window').width,
+        paddingHorizontal: 20
     }
 })

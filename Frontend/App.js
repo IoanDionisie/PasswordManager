@@ -11,7 +11,7 @@ export default function App() {
       <View style={{height: 80}}>
         <FormHeader leftHeading='Welcome' rightHeading='Back' subHeading={appTitle}/>
       </View>
-      <View style={{flexDirection: "row",  paddingHorizontal: 20}}>
+      <View style={{flexDirection: "row",  paddingHorizontal: 20, marginBottom: 20}}>
         <FormSelectorButton 
         backgroundColor="rgba(27,27,51,1)" 
         title="Login"
